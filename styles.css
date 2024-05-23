@@ -17,14 +17,18 @@ body {
     text-align: center;
     max-height: 90vh; /* Allow some padding within the viewport */
     overflow-y: auto; /* Make the container scrollable */
+    margin-bottom: 40px; /* Add margin to avoid overlap with the progress bar */
 }
 
 .progress-container {
-    width: 100%;
+    width: 80%; /* Adjust the width as needed */
     background-color: #f3f3f3;
     border-radius: 13px;
     overflow: hidden;
-    margin-bottom: 20px;
+    position: fixed;
+    bottom: 20px; /* Position fixed at the bottom */
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .progress-bar {
