@@ -7,7 +7,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    text-align: justify;
+    flex-direction: column;
 }
 
 .container {
@@ -15,6 +15,23 @@ body {
     padding: 20px;
     box-sizing: border-box;
     text-align: center;
+    max-height: 90vh; /* Allow some padding within the viewport */
+    overflow-y: auto; /* Make the container scrollable */
+}
+
+.progress-container {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 13px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    height: 20px;
+    background-color: #4caf50;
+    width: 0%;
+    transition: width 0.4s ease;
 }
 
 .text-display {
