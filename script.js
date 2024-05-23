@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const textDisplay = document.getElementById('text-display');
+    const progressBar = document.getElementById('progress-bar');
 
     let titleSection;
     let sections = [];
@@ -15,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
             sections = data.sections;
             finalMessage = data.finalMessage;
             remainingSections = [...sections];
+            totalSections = sections.length; // Set total sections count
             displayNextSection(); // Display the first section (title) on load
         } catch (error) {
             console.error('Error fetching text sections:', error);
@@ -22,6 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     let remainingSections = [];
+    let totalSections = 0;
+
+    function updateProgressBar() {
+        const sectionsRead = totalSections - remainingSections.length;
+        const percentage = (sectionsRead / totalSections) * 100;
+        progressBar.style.width = `${percentage}%`;
+    }
 
     function getRandomSection() {
         if (remainingSections.length === 0) {
@@ -45,6 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
             textDisplay.removeEventListener('click', displayNextSection); // Remove click event listener
             textDisplay.classList.add('final-message'); // Add class to hide arrow cursor
             textDisplay.style.cursor = 'auto'; // Change cursor back to default
+        } else {
+            updateProgressBar(); // Update the progress bar
         }
     }
 
