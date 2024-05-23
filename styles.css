@@ -29,9 +29,8 @@ body {
     content: '>';
     position: absolute;
     font-size: 20px; /* Adjust size as needed */
-    left: 50%;
+    left: 10px; /* Left align the arrow cursor */
     bottom: -30px; /* Position below the text */
-    transform: translateX(-50%);
     visibility: hidden;
 }
 
