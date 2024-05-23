@@ -14,11 +14,12 @@ body {
     max-width: 800px; /* Adjust as needed */
     padding: 20px;
     box-sizing: border-box;
+    text-align: center;
 }
 
 .text-display {
     cursor: pointer;
-}
+    text-align: justify;
 body {
     display: flex;
     justify-content: center;
