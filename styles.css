@@ -20,5 +20,20 @@ body {
 .text-display {
     font-size: 1.25em; /* Slightly larger text size */
     text-align: justify;
-    cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAFZJREFUOI2lk9ENgDAIQ1tkoP3vXiBlbWL0fQ0+ZEwQTYQxguUqC/AhIlJZgm7EBMLNuApnLVuAx1WQQG4rkfIUi0PIIcA3sAwHO5Fsv4K2B5U9u+Mmc1Z4iIS4mlC6ykTAAAAD0BT/hyqFPEAAAAASUVORK5CYII='), auto;
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+/* Using ::after pseudo-element to create the custom arrow cursor */
+.text-display::after {
+    content: '>';
+    position: absolute;
+    font-size: 20px; /* Adjust size as needed */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+}
+
+.text-display:hover::after {
+    visibility: visible;
 }
