@@ -29,11 +29,16 @@ body {
     content: '>';
     position: absolute;
     font-size: 20px; /* Adjust size as needed */
-    left: 10px; /* Left align the arrow cursor */
+    left: 0; /* Align the arrow cursor with the edge of the text */
     bottom: -30px; /* Position below the text */
     visibility: hidden;
 }
 
 .text-display:hover::after {
     visibility: visible;
+}
+
+/* Hide the arrow cursor in the final message */
+.text-display.final-message::after {
+    display: none;
 }
