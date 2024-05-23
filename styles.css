@@ -20,6 +20,7 @@ body {
 .text-display {
     font-size: 1.25em; /* Slightly larger text size */
     text-align: justify;
+    position: relative; /* Ensure relative positioning for absolutely positioned cursor */
     cursor: pointer; /* Change cursor to pointer */
 }
 
@@ -29,8 +30,8 @@ body {
     position: absolute;
     font-size: 20px; /* Adjust size as needed */
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    bottom: -30px; /* Position below the text */
+    transform: translateX(-50%);
     visibility: hidden;
 }
 
