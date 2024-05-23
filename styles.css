@@ -21,11 +21,10 @@ body {
     box-sizing: border-box;
     position: relative;
 }
-/* Example of making a div responsive */
 .container {
     width: 100%;
-    max-width: 600px; /* Adjust max-width according to your design */
-    margin: 0 auto; /* Center the container */
+    max-width: 600px; 
+    margin: 0 auto; 
     padding: 20px;
     box-sizing: border-box;
 }
