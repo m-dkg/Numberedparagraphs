@@ -29,7 +29,7 @@ body {
 
 .progress-bar {
     height: 20px;
-    background-color: #4caf50;
+    background-color: #A9A9A9;
     width: 0%;
     transition: width 0.4s ease;
 }
