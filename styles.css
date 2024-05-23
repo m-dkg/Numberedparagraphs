@@ -20,20 +20,18 @@ body {
 .text-display {
     font-size: 1.25em; /* Slightly larger text size */
     text-align: justify;
+    cursor: text; /* Default cursor for text */
 }
 
-/* Custom cursor style using pseudo-element */
-.text-display::before {
+/* Using ::after pseudo-element to create the custom cursor */
+.text-display::after {
     content: '>';
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2em;
-    display: none;
+    font-size: 20px; /* Adjust size as needed */
+    visibility: hidden;
 }
 
-.text-display:hover::before {
-    display: block;
+.text-display:hover::after {
+    visibility: visible;
     cursor: pointer;
 }
