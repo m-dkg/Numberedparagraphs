@@ -80,6 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nextButton.disabled = false;
     }
 
+    textDisplay.addEventListener('click', displayNextSection);
     nextButton.addEventListener('click', displayNextSection);
     prevButton.addEventListener('click', displayPrevSection);
 
