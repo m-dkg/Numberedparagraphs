@@ -1,12 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
     const textDisplay = document.getElementById('text-display');
     const progressBar = document.getElementById('progress-bar');
+    const prevButton = document.getElementById('prev-button');
+    const nextButton = document.getElementById('next-button');
 
     let titleSection;
     let sections = [];
     let finalMessage;
     let firstClick = true;
-    let currentSectionIndex = 0; // Add a variable to keep track of the current section index
+    let currentSectionIndex = -1; // Start at -1 to account for the title section
 
     // Function to fetch sections from the JSON file
     async function fetchSections() {
@@ -26,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let totalSections = 0;
 
     function updateProgressBar() {
-        const sectionsRead = currentSectionIndex;
+        const sectionsRead = Math.max(0, currentSectionIndex);
         const percentage = (sectionsRead / totalSections) * 100;
         progressBar.style.width = `${percentage}%`;
     }
@@ -35,10 +37,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if (currentSectionIndex >= sections.length) {
             return finalMessage;
         }
-        return sections[currentSectionIndex++];
+        return sections[currentSectionIndex];
+    }
+
+    function getPrevSection() {
+        if (currentSectionIndex === 0) {
+            return titleSection;
+        }
+        return sections[currentSectionIndex - 1];
     }
 
     function displayNextSection() {
+        currentSectionIndex++;
         let section;
         if (firstClick) {
             section = titleSection;
@@ -47,16 +57,31 @@ document.addEventListener("DOMContentLoaded", () => {
             section = getNextSection();
         }
         textDisplay.innerHTML = section; // Use innerHTML to render HTML content
-        if (section === finalMessage) {
-            textDisplay.removeEventListener('click', displayNextSection); // Remove click event listener
-            textDisplay.classList.add('final-message'); // Add class to hide arrow cursor
-            textDisplay.style.cursor = 'auto'; // Change cursor back to default
-        } else {
-            updateProgressBar(); // Update the progress bar
-        }
+        updateProgressBar(); // Update the progress bar
+
+        // Disable/enable navigation buttons as needed
+        prevButton.disabled = currentSectionIndex <= 0;
+        nextButton.disabled = section === finalMessage;
     }
 
-    textDisplay.addEventListener('click', displayNextSection);
+    function displayPrevSection() {
+        currentSectionIndex--;
+        let section;
+        if (currentSectionIndex < 0) {
+            section = titleSection;
+        } else {
+            section = getPrevSection();
+        }
+        textDisplay.innerHTML = section; // Use innerHTML to render HTML content
+        updateProgressBar(); // Update the progress bar
+
+        // Disable/enable navigation buttons as needed
+        prevButton.disabled = currentSectionIndex <= 0;
+        nextButton.disabled = false;
+    }
+
+    nextButton.addEventListener('click', displayNextSection);
+    prevButton.addEventListener('click', displayPrevSection);
 
     fetchSections(); // Fetch the sections from the JSON file
 });
