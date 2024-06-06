@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let sections = [];
     let finalMessage;
     let firstClick = true;
+    let currentSectionIndex = 0; // Add a variable to keep track of the current section index
 
     // Function to fetch sections from the JSON file
     async function fetchSections() {
@@ -15,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
             titleSection = data.title;
             sections = data.sections;
             finalMessage = data.finalMessage;
-            remainingSections = [...sections];
             totalSections = sections.length; // Set total sections count
             displayNextSection(); // Display the first section (title) on load
         } catch (error) {
@@ -23,22 +23,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    let remainingSections = [];
     let totalSections = 0;
 
     function updateProgressBar() {
-        const sectionsRead = totalSections - remainingSections.length;
+        const sectionsRead = currentSectionIndex;
         const percentage = (sectionsRead / totalSections) * 100;
         progressBar.style.width = `${percentage}%`;
     }
 
-    function getRandomSection() {
-        if (remainingSections.length === 0) {
+    function getNextSection() {
+        if (currentSectionIndex >= sections.length) {
             return finalMessage;
         }
-        const randomIndex = Math.floor(Math.random() * remainingSections.length);
-        const section = remainingSections.splice(randomIndex, 1)[0];
-        return section;
+        return sections[currentSectionIndex++];
     }
 
     function displayNextSection() {
@@ -47,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
             section = titleSection;
             firstClick = false;
         } else {
-            section = getRandomSection();
+            section = getNextSection();
         }
         textDisplay.innerHTML = section; // Use innerHTML to render HTML content
         if (section === finalMessage) {
