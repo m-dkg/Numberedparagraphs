@@ -89,10 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return currentSubsections[currentSubsectionIndex];
     }
 
-    function appendSymbol(content) {
-        return content + ' ✺';
-    }
-
     function displayNextSection() {
         let section;
         if (firstClick) {
@@ -102,7 +98,6 @@ document.addEventListener("DOMContentLoaded", () => {
             section = getNextSection();
         }
 
-        section = appendSymbol(section);
         console.log("Displaying section:", section);
         textDisplay.innerHTML = section;
         updateProgressBar();
@@ -115,7 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function displayPrevSection() {
         let section = getPrevSection();
 
-        section = appendSymbol(section);
         console.log("Displaying section:", section);
         textDisplay.innerHTML = section;
         updateProgressBar();
@@ -126,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i++) {
+        for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
