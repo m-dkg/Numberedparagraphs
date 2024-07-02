@@ -40,23 +40,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function splitSection(section) {
-        const maxLength = 500; // Maximum length of a subsection (adjust as needed)
-        const words = section.split(' ');
-        const subsections = [];
-        let currentSubsection = '';
-
-        for (let word of words) {
-            if ((currentSubsection + word).length > maxLength) {
-                subsections.push(currentSubsection.trim());
-                currentSubsection = word;
+        const subsections = section.split('<p>').map((s, i) => {
+            if (i > 0) {
+                return `<p>${s}`;
             } else {
-                currentSubsection += ` ${word}`;
+                return s;
             }
-        }
-
-        if (currentSubsection) {
-            subsections.push(currentSubsection.trim());
-        }
+        });
 
         console.log("Split section into subsections:", subsections);
         return subsections;
@@ -109,8 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         console.log("Displaying section:", section);
-        textDisplay.innerHTML = section; // Use innerHTML to render HTML content
-        updateProgressBar(); // Update the progress bar
+        textDisplay.innerHTML = section;
+        updateProgressBar();
 
         // Disable/enable navigation buttons as needed
         prevButton.disabled = currentSectionIndex <= 0 && currentSubsectionIndex === 0;
@@ -121,8 +111,8 @@ document.addEventListener("DOMContentLoaded", () => {
         let section = getPrevSection();
 
         console.log("Displaying section:", section);
-        textDisplay.innerHTML = section; // Use innerHTML to render HTML content
-        updateProgressBar(); // Update the progress bar
+        textDisplay.innerHTML = section;
+        updateProgressBar();
 
         // Disable/enable navigation buttons as needed
         prevButton.disabled = currentSectionIndex <= 0 && currentSubsectionIndex === 0;
@@ -141,5 +131,5 @@ document.addEventListener("DOMContentLoaded", () => {
     nextButton.addEventListener('click', displayNextSection);
     prevButton.addEventListener('click', displayPrevSection);
 
-    fetchSections(); // Fetch the sections from the JSON file
+    fetchSections();
 });
