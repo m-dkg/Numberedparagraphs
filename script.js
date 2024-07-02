@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentSubsectionIndex = 0;
     let currentSection = null;
     let currentSubsections = [];
+    let sectionOrder = [];
 
     // Function to fetch sections from the JSON file
     async function fetchSections() {
@@ -22,6 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
             sections = data.sections;
             finalMessage = data.finalMessage;
             totalSections = sections.length;
+            sectionOrder = shuffleArray([...Array(totalSections).keys()]);
+            console.log("Fetched sections:", sections);
             displayNextSection(); // Display the first section (title) on load
         } catch (error) {
             console.error('Error fetching text sections:', error);
@@ -44,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         for (let word of words) {
             if ((currentSubsection + word).length > maxLength) {
-                subsections.push(currentSubsection);
+                subsections.push(currentSubsection.trim());
                 currentSubsection = word;
             } else {
                 currentSubsection += ` ${word}`;
@@ -52,9 +55,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (currentSubsection) {
-            subsections.push(currentSubsection);
+            subsections.push(currentSubsection.trim());
         }
 
+        console.log("Split section into subsections:", subsections);
         return subsections;
     }
 
@@ -69,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return finalMessage;
         }
 
-        currentSection = sections[currentSectionIndex];
+        currentSection = sections[sectionOrder[currentSectionIndex]];
         currentSubsections = splitSection(currentSection);
         currentSubsectionIndex = 0;
         return currentSubsections[currentSubsectionIndex];
@@ -89,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return titleSection;
         }
 
-        currentSection = sections[currentSectionIndex];
+        currentSection = sections[sectionOrder[currentSectionIndex]];
         currentSubsections = splitSection(currentSection);
         currentSubsectionIndex = currentSubsections.length - 1;
         return currentSubsections[currentSubsectionIndex];
@@ -104,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
             section = getNextSection();
         }
 
+        console.log("Displaying section:", section);
         textDisplay.innerHTML = section; // Use innerHTML to render HTML content
         updateProgressBar(); // Update the progress bar
 
@@ -115,12 +120,21 @@ document.addEventListener("DOMContentLoaded", () => {
     function displayPrevSection() {
         let section = getPrevSection();
 
+        console.log("Displaying section:", section);
         textDisplay.innerHTML = section; // Use innerHTML to render HTML content
         updateProgressBar(); // Update the progress bar
 
         // Disable/enable navigation buttons as needed
         prevButton.disabled = currentSectionIndex <= 0 && currentSubsectionIndex === 0;
         nextButton.disabled = false;
+    }
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
     }
 
     textDisplay.addEventListener('click', displayNextSection);
