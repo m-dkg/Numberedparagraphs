@@ -15,9 +15,8 @@ body {
     padding: 20px;
     box-sizing: border-box;
     text-align: center;
-    max-height: 90vh; /* Allow some padding within the viewport */
+    max-height: 80vh; /* Allow some padding within the viewport */
     overflow-y: auto; /* Make the container scrollable */
-    margin-bottom: 40px; /* Add margin to avoid overlap with the progress bar */
 }
 
 .progress-container {
@@ -26,14 +25,14 @@ body {
     border-radius: 13px;
     overflow: hidden;
     position: fixed;
-    bottom: 20px; /* Position fixed at the bottom */
+    bottom: 60px; /* Position fixed at the bottom */
     left: 50%;
     transform: translateX(-50%);
 }
 
 .progress-bar {
     height: 20px;
-    background-color: #A9A9A9;
+    background-color: #4caf50;
     width: 0%;
     transition: width 0.4s ease;
 }
@@ -42,24 +41,27 @@ body {
     font-size: 1.25em; /* Slightly larger text size */
     text-align: justify;
     position: relative; /* Ensure relative positioning for absolutely positioned cursor */
-    cursor: pointer; /* Change cursor to pointer */
+    margin-bottom: 20px;
 }
 
-/* Using ::after pseudo-element to create the custom arrow cursor */
-.text-display::after {
-    content: '>';
-    position: absolute;
-    font-size: 20px; /* Adjust size as needed */
-    left: 0; /* Align the arrow cursor with the edge of the text */
-    bottom: -30px; /* Position below the text */
-    visibility: hidden;
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 80%; /* Match the width of the progress bar */
+    position: fixed;
+    bottom: 20px; /* Position fixed at the bottom */
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.text-display:hover::after {
-    visibility: visible;
+.nav-button {
+    padding: 10px 20px;
+    font-size: 2em; /* Make the arrows larger */
+    cursor: pointer;
+    user-select: none; /* Prevent text selection */
 }
 
-/* Hide the arrow cursor in the final message */
-.text-display.final-message::after {
+/* Hide the navigation buttons in the final message */
+.text-display.final-message + .button-container {
     display: none;
 }
